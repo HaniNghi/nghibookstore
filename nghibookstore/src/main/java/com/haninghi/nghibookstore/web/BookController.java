@@ -1,5 +1,5 @@
 package com.haninghi.nghibookstore.web;
 
-public class BookStoreController {
+public class BookController {
 
 }

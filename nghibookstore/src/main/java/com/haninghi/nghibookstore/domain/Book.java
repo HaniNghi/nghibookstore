@@ -1,4 +1,4 @@
-package com.haninghi.nghibookstore.model;
+package com.haninghi.nghibookstore.domain;
 
 public class Book {
     private String title;

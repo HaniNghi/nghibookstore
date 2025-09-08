@@ -10,6 +10,7 @@ import com.haninghi.nghibookstore.domain.Book;
 import com.haninghi.nghibookstore.domain.BookRepository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class BookController {
@@ -49,4 +50,15 @@ public class BookController {
         return "redirect:../booklist";
     }
 
+    @RequestMapping(value = "/editbook/{id}", method = RequestMethod.GET)
+    public String editBook(@PathVariable("id") Long bookId, Model model) {
+        model.addAttribute("book", repository.findById(bookId));
+        return "editbook";
+    }
+
+    @RequestMapping(value = { "/update" }, method = RequestMethod.POST)
+    public String update(Book book) {
+        repository.save(book);
+        return "redirect:booklist";
+    }
 }

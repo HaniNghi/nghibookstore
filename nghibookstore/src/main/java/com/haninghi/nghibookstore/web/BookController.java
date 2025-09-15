@@ -40,7 +40,6 @@ public class BookController {
     public String addBook(Model model) {
         model.addAttribute("book", new Book());
         model.addAttribute("categories", cateRepository.findAll());
-        System.out.println("categority list:" + cateRepository.findAll());
         return "addbook";
     }
 
@@ -59,6 +58,7 @@ public class BookController {
     @RequestMapping(value = "/editbook/{id}", method = RequestMethod.GET)
     public String editBook(@PathVariable("id") Long bookId, Model model) {
         model.addAttribute("book", repository.findById(bookId));
+        model.addAttribute("categories", cateRepository.findAll());
         return "editbook";
     }
 

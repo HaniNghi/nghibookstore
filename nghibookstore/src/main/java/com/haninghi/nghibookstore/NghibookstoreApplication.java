@@ -19,6 +19,8 @@ public class NghibookstoreApplication {
 
 	@Bean
 	public CommandLineRunner demo(BookRepository bookRepository, CategoryRepository cateRepository) {
+		Category novel =  new Category("Novel");
+		cateRepository.save(novel);
 		Category comedy = new Category("Comedy");
 		cateRepository.save(comedy);
 		Category epic =  new Category("Epic");

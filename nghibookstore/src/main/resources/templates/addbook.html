@@ -13,6 +13,9 @@
         form{
             width: 300px;
         }
+        .catelist-container > select {
+            width: 170px;
+        }
     </style>
 
 </head>
@@ -50,7 +53,7 @@
             <div class="catelist-container">
                 <label for="catelist">Category</label>
                 <select id="catelist" th:field="*{category}" class="form-control">
-                    <option th:each="category: ${categories}" th:value="${category.categoryid}"
+                    <option th:each="category: ${categories}" th:value="${category.id}"
                         th:text="${category.name}"></option>
                 </select>
             </div>

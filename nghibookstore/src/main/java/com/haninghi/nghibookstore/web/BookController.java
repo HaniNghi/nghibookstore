@@ -39,7 +39,8 @@ public class BookController {
     @RequestMapping(value = { "/addbook" })
     public String addBook(Model model) {
         model.addAttribute("book", new Book());
-        model.addAttribute("category", cateRepository.findAll());
+        model.addAttribute("categories", cateRepository.findAll());
+        System.out.println("categority list:" + cateRepository.findAll());
         return "addbook";
     }
 

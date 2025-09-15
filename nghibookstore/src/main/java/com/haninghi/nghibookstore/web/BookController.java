@@ -8,17 +8,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.haninghi.nghibookstore.domain.Book;
 import com.haninghi.nghibookstore.domain.BookRepository;
+import com.haninghi.nghibookstore.domain.CategoryRepository;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class BookController {
     @Autowired
     private BookRepository repository;
+    @Autowired
+    private CategoryRepository cateRepository;
 
-    public BookController(BookRepository repository) {
+    public BookController(BookRepository repository, CategoryRepository cateRepository) {
         this.repository = repository;
+        this.cateRepository = cateRepository;
     }
 
     @GetMapping("/")
@@ -35,6 +39,7 @@ public class BookController {
     @RequestMapping(value = { "/addbook" })
     public String addBook(Model model) {
         model.addAttribute("book", new Book());
+        model.addAttribute("category", cateRepository.findAll());
         return "addbook";
     }
 

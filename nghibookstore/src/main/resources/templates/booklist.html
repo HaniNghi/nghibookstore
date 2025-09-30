@@ -33,7 +33,7 @@
                 <a class="btn btn-success" th:href="@{/delete/{id}(id=${book.id})}">Delete</a>
             </td>
 
-            <td sec:authorize="hasAuthority ('ADMIN')">
+            <td>
                 <a class="btn btn-success" th:href="@{/editbook/{id}(id=${book.id})}">Edit</a>
             </td>
         </tr>

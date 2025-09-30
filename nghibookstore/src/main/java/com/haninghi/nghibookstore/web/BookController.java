@@ -7,6 +7,7 @@ import java.util.Locale.Category;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,6 +44,11 @@ public class BookController {
     @GetMapping("/")
     public String getMainScreen() {
         return "index";
+    }
+
+    @RequestMapping(value="/login")
+    public String login() {
+        return "login";
     }
 
     @RequestMapping(value = { "/", "/booklist" })
@@ -82,12 +88,14 @@ public class BookController {
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String deleteBook(@PathVariable("id") Long bookId, Model model) {
         bookRepository.deleteById(bookId);
         return "redirect:../booklist";
     }
 
     @RequestMapping(value = "/editbook/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String editBook(@PathVariable("id") Long bookId, Model model) {
         model.addAttribute("book", bookRepository.findById(bookId));
         model.addAttribute("categories", cateRepository.findAll());

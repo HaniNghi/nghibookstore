@@ -30,29 +30,45 @@ public class WebSecurityConfig {
         auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
     }
 
+    /*
+     * Create 2 in-memory users: 1 normal user and 1 admin user
+     */
     @Bean
     public UserDetailsService userDetailsService() {
-        UserDetails user = User.withDefaultPasswordEncoder()
-                .username("user")
-                .password("password")
-                .roles("USER")
-                .build();
-        List<UserDetails> users = new ArrayList();
-        users.add(user);
+        // Even `withDefaultPasswordEncoder` is deprecated, but it is still fine for demo and learning
+        UserDetails normalUser = User.withDefaultPasswordEncoder()
+            .username("normalUser")
+            .password("password")
+            .roles("USER")
+            .build();
+        UserDetails adminUser = User.withDefaultPasswordEncoder()
+            .username("adminUser")
+            .password("password")
+            .roles("ADMIN")
+            .build();
+        List<UserDetails> users = new ArrayList<UserDetails>();
+        users.add(normalUser);
+        users.add(adminUser);
         return new InMemoryUserDetailsManager(users);
     }
 
+    /*
+     * Secure all URLs that needs to have authentication
+     */
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests(authorize -> authorize
-                        .anyRequest().authenticated())
-                .formLogin(formlogin -> formlogin
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/booklist", true)
-                        .permitAll())
-                .logout(logout -> logout
-                        .permitAll());
+            .authorizeHttpRequests(authorize -> authorize
+                .anyRequest().authenticated()
+            ) // requires all endpoints have to be authenticated
+            .formLogin(formlogin -> formlogin
+                .loginPage("/login")
+                .defaultSuccessUrl("/booklist", true) // direct user to /booklist after login successfully
+                .permitAll()
+            )
+            .logout(logout -> logout
+                .permitAll()
+            );
         return http.build();
     }
 }

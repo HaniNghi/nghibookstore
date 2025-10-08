@@ -1,8 +1,6 @@
 package com.haninghi.nghibookstore.web;
 
-import java.net.http.HttpResponse;
 import java.util.List;
-import java.util.Optional;
 import java.util.Locale.Category;
 
 import org.springframework.beans.factory.annotation.Autowired;

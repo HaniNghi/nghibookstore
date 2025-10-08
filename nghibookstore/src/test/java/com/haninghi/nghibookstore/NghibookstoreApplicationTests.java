@@ -17,5 +17,4 @@ class NghibookstoreApplicationTests {
     public void contextLoads() throws Exception {
         assertThat(bookController).isNotNull();
     }
-
 }
